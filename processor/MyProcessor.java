@@ -10,6 +10,8 @@ public class MyProcessor extends Processor {
     private MyMemory PC;    
     private MyMemory IR;    
     private MyMemory ACC;
+
+    private String fibSequence = "0, 1"; //String that will store the portion of the fibonacci sequence generated
     
     public MyProcessor() {
         try {
@@ -42,6 +44,7 @@ public class MyProcessor extends Processor {
             return 1;
         } else {
             System.out.println("Could not find anymore instructions to fetch");
+            this.fibSequence += ",..."; //last addition to the fib sequence attribute
             return 0;
         }
         
@@ -98,12 +101,17 @@ public class MyProcessor extends Processor {
             case 7: //Store AC to stdout
                 valueFromACC = this.ACC.getData();
                 System.out.println("Value from AC: " + valueFromACC);
+                this.fibSequence += ", " + valueFromACC; //adds the content of the AC register to the portion of the fibonacci sequence being generated
                 break;
         
             default:
                 break;
         }
         return 1;
-    } 
+    }
+    
+    public String getFibSequenceGenerated() {
+        return this.fibSequence;
+    }
 
 } //end abstract class Processor

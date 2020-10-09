@@ -11,9 +11,11 @@ public class OS {
         try {
             // Instruction i = new Instruction(); //for testing purposes
 
-            final int SIZE = 50;
+            final int SIZE = 100;
             MyMemory m = new MyMemory(SIZE);
             m.printSize();
+            System.out.println();
+
             Thread.sleep(500);
 
             MyProcessor p = new MyProcessor();
@@ -27,6 +29,9 @@ public class OS {
                 System.out.println();
                 flag = p.fetch() == 1? true : false;
             }
+            System.out.println();
+            System.out.println("Portion of the Fibonacci Sequence generated:");
+            System.out.println(p.getFibSequenceGenerated());
             
             // p.fetch();            
 			// Thread.sleep(2000);

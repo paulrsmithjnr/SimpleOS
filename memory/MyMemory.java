@@ -70,7 +70,7 @@ public class MyMemory extends Memory {
                     // System.out.println(instruction);
 
                     opcode = c.convertDecToBin(7); //0111;
-                    instruction = new Instruction(opcode); //store AC to stdout
+                    instruction = new Instruction(opcode, c.convertDecToBin(address)); //store AC to stdout
                     this.memloc.set(index + 2, instruction);
                     // System.out.println(instruction);
 
@@ -84,7 +84,7 @@ public class MyMemory extends Memory {
                 }
             }
 
-            System.out.println("Memloc: " + memloc);
+            // System.out.println("Memloc: " + memloc);
 
         }
 }//end abstract class memory
