@@ -1,9 +1,11 @@
 package simpleos.memory;
 import simpleos.processor.Instruction;
+import simpleos.processor.Converter;
 
 public class MyMemory extends Memory {
 
         private Instruction instruction;
+        private Converter c = new Converter();
         private int data;
 
         public MyMemory(int size){
@@ -46,7 +48,6 @@ public class MyMemory extends Memory {
             int midpoint = (int) Math.floor(size/2);
             int opcode;
             int address = midpoint;
-            Instruction instruction = new Instruction();
             int index;
 
             this.memloc.set(midpoint, 0);
@@ -57,25 +58,25 @@ public class MyMemory extends Memory {
 
                 if ((index + 3) < midpoint) { //if index + 3 is not greater than the midpoint
 
-                    opcode = instruction.convertDecToBin(1); //0001
-                    instruction = new Instruction(opcode, instruction.convertDecToBin(address)); //load AC from memory
+                    opcode = c.convertDecToBin(1); //0001
+                    instruction = new Instruction(opcode, c.convertDecToBin(address)); //load AC from memory
                     this.memloc.set(index, instruction); //saving instruction to memory
                     // System.out.println(instruction);
                     
-                    opcode = instruction.convertDecToBin(5); //0101;
+                    opcode = c.convertDecToBin(5); //0101;
                     address++;
-                    instruction = new Instruction(opcode, instruction.convertDecToBin(address)); //add to AC from memory
+                    instruction = new Instruction(opcode, c.convertDecToBin(address)); //add to AC from memory
                     this.memloc.set(index + 1, instruction);
                     // System.out.println(instruction);
 
-                    opcode = instruction.convertDecToBin(7); //0111;
+                    opcode = c.convertDecToBin(7); //0111;
                     instruction = new Instruction(opcode); //store AC to stdout
                     this.memloc.set(index + 2, instruction);
                     // System.out.println(instruction);
 
-                    opcode = instruction.convertDecToBin(2); //0010;
+                    opcode = c.convertDecToBin(2); //0010;
                     address++;
-                    instruction = new Instruction(opcode, instruction.convertDecToBin(address)); //store AC to memory
+                    instruction = new Instruction(opcode, c.convertDecToBin(address)); //store AC to memory
                     this.memloc.set(index + 3, instruction);
                     // System.out.println(instruction);
 

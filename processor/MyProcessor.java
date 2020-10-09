@@ -6,6 +6,7 @@ import simpleos.memory.*;
 
 public class MyProcessor extends Processor {
     private MyMemory m; //wil act as the link between this class and the MyMemory class
+    private Converter c = new Converter(); //this object will be used to perform binary to decimal conversions and vice versa
     private MyMemory PC;    
     private MyMemory IR;    
     private MyMemory ACC;
@@ -48,20 +49,20 @@ public class MyProcessor extends Processor {
     public int execute(){
         System.out.println("Processor is now executing..");
         Instruction currentInstruction = this.IR.getInstruction(); //references the instruction stored in the IR register
-        int opcode = currentInstruction.convertBinToDec(currentInstruction.getOpcode()); //gets the opcode as a decimal value
+        int opcode = c.convertBinToDec(currentInstruction.getOpcode()); //gets the opcode as a decimal value
         int address;//to hold instruction address
         int valueFromMemory, valueFromACC, newValue;
         System.out.println("Current Instruction: " + currentInstruction);
         switch (opcode) {
             case 1: //Load AC from memory
-                address = currentInstruction.convertBinToDec(currentInstruction.getAddress()); //gets the address as a decimal value
+                address = c.convertBinToDec(currentInstruction.getAddress()); //gets the address as a decimal value
                 valueFromMemory = this.m.getValue(address);
                 this.ACC.setData(valueFromMemory);
                 System.out.println("AC was loaded from memory");
                 break;
             
             case 2: //Store AC to memory
-                address = currentInstruction.convertBinToDec(currentInstruction.getAddress()); //gets the address as a decimal value
+                address = c.convertBinToDec(currentInstruction.getAddress()); //gets the address as a decimal value
                 valueFromACC = this.ACC.getData();
                 this.m.setValue(address, valueFromACC);
                 System.out.println("AC was stored to memory");
@@ -77,7 +78,7 @@ public class MyProcessor extends Processor {
                 break;
 
             case 4: //Subtract from AC from memory
-                address = currentInstruction.convertBinToDec(currentInstruction.getAddress()); //gets the address as a decimal value
+                address = c.convertBinToDec(currentInstruction.getAddress()); //gets the address as a decimal value
                 valueFromMemory = this.m.getValue(address);
                 valueFromACC = this.ACC.getData();
                 newValue = valueFromACC - valueFromMemory;
@@ -86,7 +87,7 @@ public class MyProcessor extends Processor {
                 break;
 
             case 5: //Add to AC from memory
-                address = currentInstruction.convertBinToDec(currentInstruction.getAddress()); //gets the address as a decimal value
+                address = c.convertBinToDec(currentInstruction.getAddress()); //gets the address as a decimal value
                 valueFromMemory = this.m.getValue(address);
                 valueFromACC = this.ACC.getData();
                 newValue = valueFromACC + valueFromMemory;
