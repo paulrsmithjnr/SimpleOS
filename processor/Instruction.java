@@ -50,6 +50,8 @@ public class Instruction {
         }else if (numberOfZeroes == 3) {
             zeroes = "000";
         }
+        //ALL THE CODE IN THIS METHOD ABOVE THIS COMMENT WAS JUST TO CALCULATE
+        //THE NUMBER OF ZEROES TO BE ADDED TO THE OPCODE
 
         return zeroes + this.opcode + " " + this. address;
     }

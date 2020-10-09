@@ -9,9 +9,8 @@ public class OS {
     public static void main(String[] args){
 
         try {
-            // Instruction i = new Instruction(); //for testing purposes
 
-            final int SIZE = 100;
+            final int SIZE = 20;
             MyMemory m = new MyMemory(SIZE);
             m.printSize();
             System.out.println();
