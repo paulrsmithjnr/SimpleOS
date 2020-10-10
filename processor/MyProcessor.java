@@ -40,7 +40,7 @@ public class MyProcessor extends Processor {
     }
 
     public int fetch(){
-        System.out.println("Processor is now fetching..");
+        System.out.println("Processor is now fetching...");
 
         int instructionAddress = this.PC.getData(); //gets the address stored in the PC register
         Object currentInstruction = m.retrieveIntstruction(instructionAddress); //retrieves currrent instuction from memory

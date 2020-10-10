@@ -28,7 +28,7 @@ public class OS {
             p.fetch(); //fetches the first instruction from memory
             boolean flag = p.execute() == 1? true : false; //executes the first instruction that was fetched
             while (flag) { //if the first instruction was executed properly...
-                Thread.sleep(100);
+                Thread.sleep(10);
                 System.out.println();
                 p.fetch();
                 flag = p.execute() == 1? true : false;
