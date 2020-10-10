@@ -10,6 +10,7 @@ public class MyMemory extends Memory {
 
         public MyMemory(int size){
             super(size);
+            printSize();
             loadMemory();
             this.instruction = null;
             this.data = 0;
@@ -48,15 +49,17 @@ public class MyMemory extends Memory {
             int midpoint = (int) Math.floor(size/2);
             int opcode;
             int address = midpoint;
-            int index;
+            int index = 0;
 
             this.memloc.set(midpoint, 0);
             this.memloc.set(midpoint+1, 1);
 
-            for (int i = 0; i < midpoint; i = i + 4) {
+            System.out.println("\nThe first two values of the fibonacci sequence, i.e. 0 and 1,\nwere preloaded in memory at addresses " + c.convertDecToBin(midpoint) + " and " + c.convertDecToBin(midpoint+1) + " respectively.");
+
+            for (int i = 0; i < midpoint; i = i + 6) {
                 index = i;
 
-                if ((index + 3) < midpoint) { //if index + 3 is not greater than the midpoint
+                if ((index + 5) < midpoint-1) { //if index + 5 is not greater than the midpoint
 
                     opcode = c.convertDecToBin(1); //0001
                     instruction = new Instruction(opcode, c.convertDecToBin(address)); //load AC from memory
@@ -80,9 +83,28 @@ public class MyMemory extends Memory {
                     this.memloc.set(index + 3, instruction);
                     // System.out.println(instruction);
 
+                    opcode = c.convertDecToBin(4); //0100;
                     address--;
-                }
+                    instruction = new Instruction(opcode, c.convertDecToBin(address)); //subtract from AC from memory
+                    this.memloc.set(index + 4, instruction);
+                    // System.out.println(instruction);
+
+                    opcode = c.convertDecToBin(2); //0010;
+                    address = address + 2;
+                    instruction = new Instruction(opcode, c.convertDecToBin(address)); //store AC to memory
+                    this.memloc.set(index + 5, instruction);
+                    // System.out.println(instruction);
+
+                    address--;
+                }                
             }
+
+            //Loading the final intsruction in memory, i.e. HALT
+            opcode = c.convertDecToBin(15); //1111;
+            address++;
+            instruction = new Instruction(opcode, c.convertDecToBin(address)); //halt
+            this.memloc.set(index++, instruction);
+            // System.out.println(instruction);
 
             // System.out.println("Memloc: " + memloc);
 

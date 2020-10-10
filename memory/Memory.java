@@ -54,7 +54,7 @@ public abstract class Memory {
     public int setValue(int index, int value) {
         try{
             memloc.set(index, value);
-            System.out.println("Value set successfully!");
+            // System.out.println("Value set successfully!");
             return 1;
 
         }catch(Exception e){

@@ -10,25 +10,31 @@ public class OS {
 
         try {
 
-            final int SIZE = 20;
+            final int SIZE = 100;
             MyMemory m = new MyMemory(SIZE);
-            m.printSize();
+            // m.printSize();
             System.out.println();
 
-            Thread.sleep(500);
+            Thread.sleep(1000);
 
             MyProcessor p = new MyProcessor();
+
             // m.printSize();
 
+            System.out.println("\nStarting the instruction cycle...");
+            Thread.sleep(2000);
+
             System.out.println();
-            boolean flag = p.fetch() == 1? true : false;
-            while (flag) {
-                p.execute();
-                Thread.sleep(500);
+            p.fetch(); //fetches the first instruction from memory
+            boolean flag = p.execute() == 1? true : false; //executes the first instruction that was fetched
+            while (flag) { //if the first instruction was executed properly...
+                Thread.sleep(100);
                 System.out.println();
-                flag = p.fetch() == 1? true : false;
+                p.fetch();
+                flag = p.execute() == 1? true : false;
             }
             System.out.println();
+            Thread.sleep(2000);
             System.out.println("Portion of the Fibonacci Sequence generated:");
             System.out.println(p.getFibSequenceGenerated());
             

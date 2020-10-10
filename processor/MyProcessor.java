@@ -14,7 +14,7 @@ public class MyProcessor extends Processor {
     private MyMemory IR;    
     private MyMemory ACC;
 
-    private String fibSequence = "0, 1"; //String that will store the portion of the fibonacci sequence generated
+    private String fibSequence = "0"; //String that will store the portion of the fibonacci sequence generated
     
     public MyProcessor() {
         try {
@@ -22,15 +22,15 @@ public class MyProcessor extends Processor {
 
             System.out.println("Initializing PC...");
             this.PC = new MyMemory();
-            Thread.sleep(500);
+            Thread.sleep(1000);
 
             System.out.println("Initializing IR...");
             this.IR = new MyMemory();
-            Thread.sleep(500);
+            Thread.sleep(1000);
 
             System.out.println("Initializing ACC...");
             this.ACC = new MyMemory();
-            Thread.sleep(500);
+            Thread.sleep(1000);
 
             this.m = new MyMemory();
 
@@ -53,16 +53,10 @@ public class MyProcessor extends Processor {
 
             this.PC.increment(); //increments the contents of the PC register - points to the address of the next instruction
             return 1;
-
-        } else {
-
-            System.out.println("Could not find anymore instructions to fetch");
-            this.fibSequence += ",..."; //last addition to the fib sequence attribute
-            return 0;
-
-        }
-        
+        } 
+        return 0;
     } 
+
     public int execute(){
         System.out.println("Processor is now executing...");
 
@@ -139,6 +133,12 @@ public class MyProcessor extends Processor {
                 this.fibSequence += ", " + valueFromACC; //adds the content of the AC register to the portion of the fibonacci sequence being generated
                 break;
         
+            case 15: //Halt
+
+                System.out.println("Halting the instruction cycle...");
+                this.fibSequence += ",..."; //last addition to the fib sequence attribute
+                return 0;
+
             default:
                 break;
         }
