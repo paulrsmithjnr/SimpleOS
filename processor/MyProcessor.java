@@ -14,7 +14,7 @@ public class MyProcessor extends Processor {
     private MyMemory IR;    
     private MyMemory ACC;
 
-    private String fibSequence = "0"; //String that will store the portion of the fibonacci sequence generated
+    private String fibSequence = ""; //String that will store the portion of the fibonacci sequence generated
     
     public MyProcessor() {
         try {
@@ -88,17 +88,12 @@ public class MyProcessor extends Processor {
 
             case 3: //Load AC from stdin
 
-                //Declarations
-                Scanner stdin = new Scanner(System.in);
-                int input;
+                int input = m.stdin; //Reading value from "stdin"
+                m.stdin++;
 
-                //prompts user
-                System.out.print("Enter integer value to load to ACC: ");
-                input = stdin.nextInt();
-
-                //loads user input to AC
+                //loads stdin input to AC
                 this.ACC.setData(input);
-                System.out.println("\nAC was loaded from stdin");
+                System.out.println("AC was loaded from stdin");
                 break;
 
             case 4: //Subtract from AC from memory
@@ -130,13 +125,13 @@ public class MyProcessor extends Processor {
                 valueFromACC = this.ACC.getData(); //references the value stored in AC
 
                 System.out.println("Value from AC: " + valueFromACC);
-                this.fibSequence += ", " + valueFromACC; //adds the content of the AC register to the portion of the fibonacci sequence being generated
+                this.fibSequence += valueFromACC + ", "; //adds the content of the AC register to the portion of the fibonacci sequence being generated
                 break;
         
             case 15: //Halt
 
                 System.out.println("Halting the instruction cycle...");
-                this.fibSequence += ",..."; //last addition to the fib sequence attribute
+                this.fibSequence += "..."; //last addition to the fib sequence attribute
                 return 0;
 
             default:

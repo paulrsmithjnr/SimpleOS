@@ -9,17 +9,23 @@ public class OS {
     public static void main(String[] args){
 
         try {
-
-            final int SIZE = 100;
+            /**
+             * The number of values generated for the fib sequence is dependent
+             * on the size that memory is initialized to.
+             * That is, the larger the size, the more values generated.
+             * 
+             * NB: -The size of memory needs to be at least 12 to actually see values starting
+             *      to be generated.
+             *     -Any size less than 5 will raise uncaught exceptions
+             */
+            final int SIZE = 300;
             MyMemory m = new MyMemory(SIZE);
-            // m.printSize();
-            System.out.println();
 
             Thread.sleep(1000);
 
+            System.out.println();
             MyProcessor p = new MyProcessor();
 
-            // m.printSize();
 
             System.out.println("\nStarting the instruction cycle...");
             Thread.sleep(2000);

@@ -6,6 +6,7 @@ public class MyMemory extends Memory {
 
         private Instruction instruction;
         private Converter c = new Converter();
+        public int stdin = 0; //to simulate input from stdin
         private int data;
 
         public MyMemory(int size){
@@ -51,12 +52,30 @@ public class MyMemory extends Memory {
             int address = midpoint;
             int index = 0;
 
-            this.memloc.set(midpoint, 0);
-            this.memloc.set(midpoint+1, 1);
+            //Initial instructions
+            opcode = c.convertDecToBin(3); //0011
+            instruction = new Instruction(opcode, c.convertDecToBin(address)); //load AC from stdin
+            this.memloc.set(index, instruction); //saving instruction to memory
 
-            System.out.println("\nThe first two values of the fibonacci sequence, i.e. 0 and 1,\nwere preloaded in memory at addresses " + c.convertDecToBin(midpoint) + " and " + c.convertDecToBin(midpoint+1) + " respectively.");
+            opcode = c.convertDecToBin(7); //0111;
+            instruction = new Instruction(opcode, c.convertDecToBin(address)); //store AC to stdout
+            this.memloc.set(index+1, instruction);
 
-            for (int i = 0; i < midpoint; i = i + 6) {
+            opcode = c.convertDecToBin(2); //0010
+            instruction = new Instruction(opcode, c.convertDecToBin(address)); //store AC to memory
+            this.memloc.set(index+2, instruction); //saving instruction to memory
+
+            opcode = c.convertDecToBin(3); //0011
+            instruction = new Instruction(opcode, c.convertDecToBin(address)); //load AC from stdin
+            this.memloc.set(index+3, instruction); //saving instruction to memory
+
+            opcode = c.convertDecToBin(2); //0010
+            instruction = new Instruction(opcode, c.convertDecToBin(address+1)); //store AC to memory
+            this.memloc.set(index+4, instruction); //saving instruction to memory
+
+            //System.out.println("\nThe first two values of the fibonacci sequence, i.e. 0 and 1,\nwere loaded from stdin to memory at addresses " + c.convertDecToBin(midpoint) + " and " + c.convertDecToBin(midpoint+1) + " respectively.");
+
+            for (int i = 5; i < midpoint; i = i + 6) {
                 index = i;
 
                 if ((index + 5) < midpoint-1) { //if index + 5 is not greater than the midpoint
@@ -99,7 +118,7 @@ public class MyMemory extends Memory {
                 }                
             }
 
-            //Loading the final intsruction in memory, i.e. HALT
+            //Loading the final intsruction in memory
             opcode = c.convertDecToBin(15); //1111;
             address++;
             instruction = new Instruction(opcode, c.convertDecToBin(address)); //halt
