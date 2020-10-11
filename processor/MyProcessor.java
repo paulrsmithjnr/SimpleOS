@@ -16,6 +16,9 @@ public class MyProcessor extends Processor {
 
     private String fibSequence = ""; //String that will store the portion of the fibonacci sequence generated
     
+    /**
+     * Constructor initializes registers as well as the object that will be used to reference memory;
+     */
     public MyProcessor() {
         try {
             //INITIALIZING ALL "MyMemory" OBJECTS OF THIS CLASS
@@ -39,6 +42,11 @@ public class MyProcessor extends Processor {
         }
     }
 
+    /**
+     * Method to fetch the next instruction from memory to be executed and stores it in IR
+     * This method uses PC to get the address of the instruction to be fetched, then increments PC
+     * @return int 1 if the object retrieved from memory is an actual instruction, 0 otherwise
+     */
     public int fetch(){
         System.out.println("Processor is now fetching...");
 
@@ -48,15 +56,18 @@ public class MyProcessor extends Processor {
         if (currentInstruction instanceof Instruction) { //if the contents of currentInstruction is an Instruction object...
 
             this.IR.setInstruction((Instruction) currentInstruction); //stores current instruction to the IR register
-
-            // System.out.println(currentInstruction);
-
             this.PC.increment(); //increments the contents of the PC register - points to the address of the next instruction
+
             return 1;
         } 
+
         return 0;
     } 
 
+    /**
+     * Method to execute the current instruction stored in IR
+     * @return int 1 if the instruction executed was not "halt", 0 if the instruction executed was "halt"
+     */
     public int execute(){
         System.out.println("Processor is now executing...");
 
@@ -89,7 +100,7 @@ public class MyProcessor extends Processor {
             case 3: //Load AC from stdin
 
                 int input = m.stdin; //Reading value from "stdin"
-                m.stdin++;
+                m.stdin++; //increments the contents of stdin (initially set to 0)
 
                 //loads stdin input to AC
                 this.ACC.setData(input);
@@ -104,7 +115,7 @@ public class MyProcessor extends Processor {
 
                 newValue = valueFromACC - valueFromMemory;
 
-                this.ACC.setData(newValue); //loads difference value to AC
+                this.ACC.setData(newValue); //loads difference to AC
                 System.out.println("Subtracted value from memory from the value in AC");
                 break;
 
@@ -116,15 +127,18 @@ public class MyProcessor extends Processor {
 
                 newValue = valueFromACC + valueFromMemory;
 
-                this.ACC.setData(newValue); //loads sum value to AC
+                this.ACC.setData(newValue); //loads sum to AC
                 System.out.println("Added value from memory to the value in AC");
                 break;
 
             case 7: //Store AC to stdout
 
+                //NB: The code is written such that the value being printed is always a
+                //    value from the fib sequence
+
                 valueFromACC = this.ACC.getData(); //references the value stored in AC
 
-                System.out.println("Value from AC: " + valueFromACC);
+                System.out.println("Storing AC to stdout: " + valueFromACC); //prints value stored in AC
                 this.fibSequence += valueFromACC + ", "; //adds the content of the AC register to the portion of the fibonacci sequence being generated
                 break;
         
@@ -140,6 +154,10 @@ public class MyProcessor extends Processor {
         return 1;
     }
     
+    /**
+     * Method to return the fib sequence formatted
+     * @return String The portion of the fibonacci sequence generated, with each value separated by commas.
+     */
     public String getFibSequenceGenerated() {
         return this.fibSequence;
     }

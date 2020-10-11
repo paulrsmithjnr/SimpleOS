@@ -1,41 +1,55 @@
 package simpleos.processor;
 
 public class Instruction {
+
+    //attributes
     private int opcode;
     private int address;
 
+    /**
+     * Empty constructor
+     */
     public Instruction() {}
 
+    /**
+     * Constructor initializes the attributes of the class
+     * @param opcode
+     * @param address
+     */
     public Instruction(int opcode, int address) {
         this.opcode = opcode;
         this.address = address;
     }
 
-    // public Instruction(int opcode) {
-    //     this.opcode = opcode;
-    //     this.address = -1;
-    // }
-
+    /**
+     * Getter
+     * @return int The opcode of the instruction
+     */
     public int getOpcode() {
         return this.opcode;
     }
 
+    /**
+     * Getter
+     * @return int The address stored in the instruction
+     */
     public int getAddress() {
         return this.address;
     }
 
-    // @Override
-    // public String toString() {
-    //     return convertBinToDec(this.opcode) + " " + convertBinToDec(this. address);
-    // }
-
+    /**
+     * toString method
+     * @return String The instruction properly formatted in binary
+     */
     @Override
     public String toString() {
 
+        //Declarations
         int count = 1;
         int digits = this.opcode;
         String zeroes = "";
 
+        //Counts the number of zeroes in which the opcode needs to be padded by
         digits = (int) Math.floor(digits/10);
         while (digits != 0) {
             count++;
